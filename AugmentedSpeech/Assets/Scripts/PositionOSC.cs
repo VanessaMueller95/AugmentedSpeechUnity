@@ -24,18 +24,47 @@ public class PositionOSC : MonoBehaviour
 
     public GameObject prefab;
 
+    bool onScreen = false;
+
+    //public GameObject target;
+
+    private bool bubbleLeft = false;
+    private bool bubbleRight = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (newData)
-        {
-            newID = true;
+        /*Vector3 screenPoint = Camera.main.WorldToViewportPoint(target.transform.position);
+        onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+        bubbleLeft = screenPoint.z > 0 && screenPoint.x < 0;
+        bubbleRight = screenPoint.z > 0 && screenPoint.x > 1;
+        Debug.Log("" + screenPoint.z + " " + screenPoint.y + " " + screenPoint.x);
+        Debug.Log("Screen: " + onScreen + " Left: " + bubbleLeft + " Right: " + bubbleRight);*/
 
+        if (newData)
+        {   
+            //Testet ob Bubble außerhalb des Sichtfelds sind
+            /*
+            bubbleLeft = false;
+            bubbleRight = false;
+            
+            foreach (GameObject b in bubbles)
+            {
+                Vector3 screenPoint = Camera.main.WorldToViewportPoint(b.transform.position);
+                bubbleLeft = screenPoint.z > 0 && screenPoint.x < 0;
+                bubbleRight = screenPoint.z > 0 && screenPoint.x > 1;
+                onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+                Debug.Log("z: " + screenPoint.z + "y: " + screenPoint.x + "x: " + screenPoint.x);
+            }*/
+
+            newID = true;
             //Testet ob Bubbles freigegeben werden können
             foreach (GameObject b in bubbles)
             {
