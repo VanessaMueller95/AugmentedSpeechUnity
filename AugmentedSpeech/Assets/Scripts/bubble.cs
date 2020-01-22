@@ -9,7 +9,7 @@ public class bubble : MonoBehaviour
     public int firstTimestamp;
     public int lastActiveTimestamp;
     public bool active = false;
-    public string text;
+    public string text = null;
     public Text uiText;
 
     public Transform target;
@@ -19,31 +19,15 @@ public class bubble : MonoBehaviour
     void Start()
     {
         uiText = gameObject.transform.GetChild(0).GetComponent<Text>();
+        uiText.text = "waiting...";
         target = GameObject.Find("center").transform;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.LookAt(target, Vector3.up); ;
-
-
-        if (active && text != null)
-        {
-            uiText.text = text;
-        }
-        else if (active && text == null)
-        {
-            uiText.text = "waiting.....";
-        }
-
-        if (!active)
-        {
-            firstTimestamp = 0;
-            lastActiveTimestamp = 0;
-            text = null;
-            uiText.text = "...";
-        }
 
     }
 }

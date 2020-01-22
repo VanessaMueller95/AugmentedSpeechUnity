@@ -17,7 +17,7 @@ public class PositionOSC : MonoBehaviour
     //public GameObject[] bubbles;
     public List<GameObject> bubbles = new List<GameObject>();
 
-    private int mul = 10;
+    private int mul = 2;
     private bool newID = true;
 
     private bool newData;
@@ -41,12 +41,6 @@ public class PositionOSC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*Vector3 screenPoint = Camera.main.WorldToViewportPoint(target.transform.position);
-        onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-        bubbleLeft = screenPoint.z > 0 && screenPoint.x < 0;
-        bubbleRight = screenPoint.z > 0 && screenPoint.x > 1;
-        Debug.Log("" + screenPoint.z + " " + screenPoint.y + " " + screenPoint.x);
-        Debug.Log("Screen: " + onScreen + " Left: " + bubbleLeft + " Right: " + bubbleRight);*/
 
         if (newData)
         {   
@@ -58,8 +52,14 @@ public class PositionOSC : MonoBehaviour
             foreach (GameObject b in bubbles)
             {
                 Vector3 screenPoint = Camera.main.WorldToViewportPoint(b.transform.position);
-                bubbleLeft = screenPoint.z > 0 && screenPoint.x < 0;
-                bubbleRight = screenPoint.z > 0 && screenPoint.x > 1;
+                if (bubbleLeft = screenPoint.z > 0 && screenPoint.x < 0)
+                {
+                    Debug.Log("Nach links schauen");
+                }
+                if (bubbleRight = screenPoint.z > 0 && screenPoint.x > 1)
+                {
+                    Debug.Log("Nach rechts schauen");
+                }
                 onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
                 Debug.Log("z: " + screenPoint.z + "y: " + screenPoint.x + "x: " + screenPoint.x);
             }*/
@@ -86,7 +86,7 @@ public class PositionOSC : MonoBehaviour
                 {
                     script.lastActiveTimestamp = timestamp;
                     newID = false;
-                    activeBubble.transform.position = new Vector3(xPos * mul, 0, yPos * mul);
+                    activeBubble.transform.position = new Vector3(xPos * mul, 0.3f, yPos * mul);
                     newData = false;
                     break;
                 }
@@ -104,7 +104,7 @@ public class PositionOSC : MonoBehaviour
 
                     //misst die Distanz zwischen der neuen und bereits existierenden Punkten und weißt neue IDs ggf. alten zu, wenn diese nah aneinander liegen
                     Debug.Log(Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, zPos * mul, yPos * mul)));
-                    if (Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, 0, yPos * mul)) < 1)
+                    if (Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, 0.3f, yPos * mul)) < 0.2)
                     {
                         script.activeID = id;
                         newData = false;
@@ -122,7 +122,7 @@ public class PositionOSC : MonoBehaviour
                     script.activeID = id;
                     script.lastActiveTimestamp = timestamp;
                     script.firstTimestamp = timestamp;
-                    newBubble.transform.position = new Vector3(xPos * mul, 0, yPos * mul);
+                    newBubble.transform.position = new Vector3(xPos * mul, 0.3f, yPos * mul);
                     bubbles.Add(newBubble);
                     newData = false;
 
