@@ -13,6 +13,8 @@ public class TextOSC : MonoBehaviour
     public float lastPakageTimestamp;
     public string text;
 
+    public string mood;
+
     bool dataReceived = false;
 
     //public GameObject[] bubbles;
@@ -40,9 +42,19 @@ public class TextOSC : MonoBehaviour
                 if (script.activeID == pakageID) {
                     script.text = text;
                     script.uiText.text = text;
+
+                    //Möglichkeit eine Stimmung einzubringen
+                    /*
+                    if (mood == "angry")
+                    {
+                        Debug.Log(mood);
+                        b.GetComponent<Image>().color = new Color(255f,0f,0f,0.5f);
+                    }*/
                 }
             }
             dataReceived = false;
+
+            
         }
     }
 
