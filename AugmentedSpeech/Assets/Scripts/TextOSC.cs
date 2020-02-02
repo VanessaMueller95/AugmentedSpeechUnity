@@ -17,7 +17,7 @@ public class TextOSC : MonoBehaviour
 
     bool dataReceived = false;
 
-    //public GameObject[] bubbles;
+    //beeinhaltet alle aktiven Sprechblasen
     private List<GameObject> bubbles = new List<GameObject>();
 
     private GameObject posOSC;
@@ -34,8 +34,10 @@ public class TextOSC : MonoBehaviour
     {
         if (dataReceived)
         {
+            //übernimmt die Sprechblasenliste aus dem Positions-Skript
             bubbles = posOSC.GetComponent<PositionOSC>().bubbles;
 
+            //geht jeder Sprechblase durch und sucht die ID der Textnachricht
             foreach (GameObject b in bubbles)
             {
                 bubble script = b.GetComponent<bubble>();
@@ -53,11 +55,10 @@ public class TextOSC : MonoBehaviour
                 }
             }
             dataReceived = false;
-
-            
         }
     }
 
+    //Speicherung der OSC Inhalte in Variablen
     public void GetData( OscMessage value )
     {
         localMsg = value;
@@ -68,6 +69,5 @@ public class TextOSC : MonoBehaviour
         text = localMsg.Values[3].ToString();
 
         dataReceived = true;
-
     }
 }

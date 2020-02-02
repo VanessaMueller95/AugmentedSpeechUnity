@@ -14,31 +14,29 @@ public class PositionOSC : MonoBehaviour
     public string tag;
     public int timestamp;
 
-    //public GameObject[] bubbles;
+    //Beinhaltet alle aktiven Sprechblasen
     public List<GameObject> bubbles = new List<GameObject>();
 
+    //Multiplkator für die Positionsdaten
     private int mul = 2;
-    private bool newID = true;
 
+    //Hilfsvariablen
+    private bool newID = true;
     private bool newData;
 
+    //Prefab für die Sprechblase
     public GameObject prefab;
-
+    
+    //Variablen für das Ermitteln von Sprachquellen außerhalb des Sichtfelds
     bool onScreen = false;
-
-    //public GameObject target;
-
     private bool bubbleLeft = false;
     private bool bubbleRight = false;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -65,13 +63,13 @@ public class PositionOSC : MonoBehaviour
             }*/
 
             newID = true;
-            //Testet ob Bubbles freigegeben werden können
+
+            //Testet ob Bubbles freigegeben werden können, da sie lange inaktiv waren
             foreach (GameObject b in bubbles)
             {
                 bubble script = b.GetComponent<bubble>();
                 if (script.lastActiveTimestamp <= timestamp - 5000)
                 {
-                    //script.active = false;
                     bubbles.Remove(b);
                     Destroy(b);
                     Debug.Log(bubbles.Count);
@@ -134,9 +132,9 @@ public class PositionOSC : MonoBehaviour
 
      }
 
+    //Überträgt die OSC Daten in Variablen
     public void GetData(OscMessage value)
     {
-
         localMsg = value;
 
         timestamp = int.Parse(localMsg.Values[0].ToString());

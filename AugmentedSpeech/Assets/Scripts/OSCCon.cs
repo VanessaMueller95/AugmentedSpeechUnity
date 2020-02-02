@@ -29,15 +29,15 @@ public class OSCCon : MonoBehaviour
         handler.SetAllMessageHandler(AllMessageHandler);
         Debug.Log("OSC Connection initialized");
 
+        textInput = GameObject.Find("OSCText");
+        posInput = GameObject.Find("OSCPosition");
         textScript = textInput.GetComponent<TextOSC>();
         posScript = posInput.GetComponent<PositionOSC>();
     }
 
     void OnDisable()
     {
-
         udp.Close();
-
     }
 
     public void AllMessageHandler(OscMessage oscMessage)
