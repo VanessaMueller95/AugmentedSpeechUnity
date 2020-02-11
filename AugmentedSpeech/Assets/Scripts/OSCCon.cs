@@ -44,7 +44,7 @@ public class OSCCon : MonoBehaviour
     {
         string msgString = Osc.OscMessageToString(oscMessage); //the message and value combined
         string msgAddress = oscMessage.Address; //the message address
-        //Debug.Log(msgString);//log the message and values coming from OSC
+        Debug.Log(msgString);//log the message and values coming from OSC
         bool sentMessage = false;
         
         if (textAdress.Equals(msgAddress))

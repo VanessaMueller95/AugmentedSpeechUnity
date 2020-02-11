@@ -18,7 +18,7 @@ public class PositionOSC : MonoBehaviour
     public List<GameObject> bubbles = new List<GameObject>();
 
     //Multiplkator für die Positionsdaten
-    private int mul = 2;
+    private int mul = 3;
 
     //Hilfsvariablen
     private bool newID = true;
@@ -26,6 +26,7 @@ public class PositionOSC : MonoBehaviour
 
     //Prefab für die Sprechblase
     public GameObject prefab;
+    public GameObject center;
     
     //Variablen für das Ermitteln von Sprachquellen außerhalb des Sichtfelds
     bool onScreen = false;
@@ -34,7 +35,7 @@ public class PositionOSC : MonoBehaviour
 
     void Start()
     {
-        
+        center = GameObject.Find("center");
     }
 
     void Update()
@@ -84,7 +85,7 @@ public class PositionOSC : MonoBehaviour
                 {
                     script.lastActiveTimestamp = timestamp;
                     newID = false;
-                    activeBubble.transform.position = new Vector3(xPos * mul, 0.3f, yPos * mul);
+                    activeBubble.transform.position = new Vector3(xPos * mul, 0f, yPos * mul);
                     newData = false;
                     break;
                 }
@@ -102,7 +103,7 @@ public class PositionOSC : MonoBehaviour
 
                     //misst die Distanz zwischen der neuen und bereits existierenden Punkten und weißt neue IDs ggf. alten zu, wenn diese nah aneinander liegen
                     Debug.Log(Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, zPos * mul, yPos * mul)));
-                    if (Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, 0.3f, yPos * mul)) < 0.2)
+                    if (Vector3.Distance(activeBubble.transform.position, new Vector3(xPos * mul, 0f, yPos * mul)) < 0.2)
                     {
                         script.activeID = id;
                         newData = false;
@@ -114,13 +115,13 @@ public class PositionOSC : MonoBehaviour
                 //Instantziiert neue Bubble
                 if (!stop)
                 {
-                    GameObject newBubble = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.Euler(90f, 0f, 0f)) as GameObject;
+                    GameObject newBubble = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.Euler(90f, 0f, 0f), center.transform) as GameObject;
                     bubble script = newBubble.GetComponent<bubble>();
                     script.active = true;
                     script.activeID = id;
                     script.lastActiveTimestamp = timestamp;
                     script.firstTimestamp = timestamp;
-                    newBubble.transform.position = new Vector3(xPos * mul, 0.3f, yPos * mul);
+                    newBubble.transform.position = new Vector3(xPos * mul, 0f, yPos * mul);
                     bubbles.Add(newBubble);
                     newData = false;
 
